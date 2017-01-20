@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using TodoList.Entities;
 
 namespace TodoList.Models
 {
@@ -24,6 +25,10 @@ namespace TodoList.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+
+        public DbSet<Project> Projects { get; set; }
+
+        public DbSet<ToDoTask> ToDoTasks { get; set; }
 
         public static ApplicationDbContext Create()
         {

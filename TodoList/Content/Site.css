@@ -22,3 +22,37 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*Set _layout color styles*/
+#nav_container {
+    background-color: #FF5722;
+    font-weight: bold;
+}
+
+.navbar-brand {
+    color: white;
+}
+
+#registerLink {
+    color: white;
+}
+
+#loginLink {
+    color: white;
+}
+
+.navbar-right li > a {
+     color: white;
+}
+
+#loginTittle {
+    text-align: center;
+}
+
+#registerTittle {
+     text-align: center;
+}
+
+.navbar-fixed-bottom {
+    text-align: center;
+}
