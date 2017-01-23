@@ -12,16 +12,19 @@
     <div class="navbar-fixed-top"  id="nav_container">
         <div class="container">
             <div class="navbar-header">
-               @Html.ActionLink("TodoList", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+               @Html.ActionLink("TodoList", "Index", "ToDoTasks", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Tasks", "Index", "ToDoTasks")</li>
+                </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
+       
         <footer class="navbar-fixed-bottom">
             <p>&copy; @DateTime.Now.Year - Developed by Fedir Petrenko</p>
         </footer>

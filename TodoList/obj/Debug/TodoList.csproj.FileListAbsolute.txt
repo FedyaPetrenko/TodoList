@@ -80,6 +80,3 @@ F:\Projects\TodoList\TodoList\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 F:\Projects\TodoList\TodoList\obj\Debug\TodoList.csprojResolveAssemblyReference.cache
 F:\Projects\TodoList\TodoList\obj\Debug\TodoList.dll
 F:\Projects\TodoList\TodoList\obj\Debug\TodoList.pdb
-F:\Projects\TodoList\TodoList\obj\Debug\TodoList.Migrations.InitialCreate.resources
-F:\Projects\TodoList\TodoList\obj\Debug\TodoList.csproj.GenerateResource.Cache
-F:\Projects\TodoList\TodoList\obj\Debug\TodoList.Migrations.newEntities.resources
