@@ -1,0 +1,16 @@
+﻿@model TodoList.Entities.ToDoTask
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row" id="searchDiv">
+        <div class="col-md-6">
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Search task with description" } })
+        </div>
+
+        <div class="btn btn-default col-md-1">
+            <i class="glyphicon glyphicon-search"></i>
+        </div>
+    </div>
+}

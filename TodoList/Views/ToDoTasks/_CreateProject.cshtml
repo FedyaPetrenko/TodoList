@@ -1,0 +1,35 @@
+﻿@model TodoList.Entities.Project
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    <fieldset class="col-md-5">
+        <legend>Create new project</legend>
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Description, new {htmlAttributes = new {@class = "form-control", @placeholder = "Decription"}})
+                    @Html.ValidationMessageFor(model => model.Description, "", new {@class = "text-danger"})
+                </div>
+            </div>
+
+            <br />
+
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="submit" value="Create" class="btn-primary form-control col-md-12" />
+                </div>
+            </div>
+
+            <br />
+        </div>
+    </fieldset>
+}

@@ -11,14 +11,17 @@
 <body>
     <div class="navbar-fixed-top"  id="nav_container">
         <div class="container">
-            <div class="navbar-header">
-               @Html.ActionLink("TodoList", "Index", "ToDoTasks", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Tasks", "Index", "ToDoTasks")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+            <div class="row">
+                <div class="navbar-header col-md-2">
+                    @Html.ActionLink("TodoList", "Index", "ToDoTasks", new { area = "" }, new { @class = "navbar-brand", @style = "font-size:30px" })
+                </div>
+                <div class="col-md-5">
+                    @Html.Partial("_SearchToDoTask")
+                </div>
+                <div class="navbar-collapse collapse col-md-5">
+                    @*<li>@Html.ActionLink("Tasks", "Index", "ToDoTasks")</li>*@
+                    @Html.Partial("_LoginPartial")
+                </div>
             </div>
         </div>
     </div>

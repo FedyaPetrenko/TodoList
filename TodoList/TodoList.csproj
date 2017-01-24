@@ -272,6 +272,9 @@
     <Content Include="Views\ToDoTasks\Edit.cshtml" />
     <Content Include="Views\ToDoTasks\Index.cshtml" />
     <Content Include="Views\ToDoTasks\_ToDoTaskTable.cshtml" />
+    <Content Include="Views\ToDoTasks\_CreateToDoTask.cshtml" />
+    <Content Include="Views\ToDoTasks\_CreateProject.cshtml" />
+    <Content Include="Views\Shared\_SearchToDoTask.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

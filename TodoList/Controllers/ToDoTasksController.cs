@@ -36,6 +36,21 @@ namespace TodoList.Controllers
             return PartialView("_ToDoTaskTable", _db.ToDoTasks.ToList().Where(task => task.User == currentUser));
         }
 
+        public PartialViewResult CreateToDoTask()
+        {
+            return PartialView("_CreateToDoTask");
+        }
+
+        public PartialViewResult CreateProject()
+        {
+            return PartialView("_CreateProject");
+        }
+
+        public PartialViewResult SearchToDoTask()
+        {
+            return PartialView("_SearchToDoTask");
+        }
+
         // GET: ToDoTasks/Details/5
         public ActionResult Details(int? id)
         {
