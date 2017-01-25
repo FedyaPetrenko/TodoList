@@ -1,10 +1,17 @@
 ﻿@model TodoList.Entities.Project
 
-@using (Html.BeginForm()) 
+@{
+    var options = new AjaxOptions()
+    {
+        Url = Url.Action("CreateProject")
+    };
+}
+
+@using (Ajax.BeginForm(options)) 
 {
     @Html.AntiForgeryToken()
     <fieldset class="col-md-5">
-        <legend>Create new project</legend>
+        <legend id="fieldsetLegend">Create a new project</legend>
         <div class="form-horizontal">
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })

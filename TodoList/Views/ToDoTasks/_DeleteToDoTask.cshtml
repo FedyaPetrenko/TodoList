@@ -1,0 +1,17 @@
+﻿@model TodoList.Entities.ToDoTask
+
+@{
+    var option = new AjaxOptions()
+    {
+        Url = Url.Action("Delete"),
+        UpdateTargetId = "tableDiv",
+        HttpMethod = "Post"
+    };
+}
+
+@using (Ajax.BeginForm(option))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(modelItem => modelItem.Id)
+    <input id="deleteTask" type="submit" value="Delete" class="btn btn-danger" />
+}

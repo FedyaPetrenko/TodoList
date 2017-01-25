@@ -227,6 +227,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -266,15 +268,15 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\ToDoTasks\Create.cshtml" />
     <Content Include="Views\ToDoTasks\Delete.cshtml" />
-    <Content Include="Views\ToDoTasks\Details.cshtml" />
     <Content Include="Views\ToDoTasks\Edit.cshtml" />
     <Content Include="Views\ToDoTasks\Index.cshtml" />
     <Content Include="Views\ToDoTasks\_ToDoTaskTable.cshtml" />
     <Content Include="Views\ToDoTasks\_CreateToDoTask.cshtml" />
     <Content Include="Views\ToDoTasks\_CreateProject.cshtml" />
     <Content Include="Views\Shared\_SearchToDoTask.cshtml" />
+    <Content Include="Views\ToDoTasks\_EditToDoTask.cshtml" />
+    <Content Include="Views\ToDoTasks\_DeleteToDoTask.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

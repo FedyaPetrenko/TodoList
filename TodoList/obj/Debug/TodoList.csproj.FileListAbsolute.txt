@@ -77,6 +77,5 @@ F:\Projects\TodoList\TodoList\bin\Microsoft.Owin.Security.OAuth.xml
 F:\Projects\TodoList\TodoList\bin\Microsoft.Owin.Security.Google.xml
 F:\Projects\TodoList\TodoList\bin\Microsoft.Owin.Security.Twitter.xml
 F:\Projects\TodoList\TodoList\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-F:\Projects\TodoList\TodoList\obj\Debug\TodoList.csprojResolveAssemblyReference.cache
 F:\Projects\TodoList\TodoList\obj\Debug\TodoList.dll
 F:\Projects\TodoList\TodoList\obj\Debug\TodoList.pdb

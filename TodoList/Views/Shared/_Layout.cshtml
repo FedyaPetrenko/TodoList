@@ -19,7 +19,6 @@
                     @Html.Partial("_SearchToDoTask")
                 </div>
                 <div class="navbar-collapse collapse col-md-5">
-                    @*<li>@Html.ActionLink("Tasks", "Index", "ToDoTasks")</li>*@
                     @Html.Partial("_LoginPartial")
                 </div>
             </div>
@@ -28,8 +27,10 @@
     <div class="container body-content">
         @RenderBody()
        
-        <footer class="navbar-fixed-bottom">
-            <p>&copy; @DateTime.Now.Year - Developed by Fedir Petrenko</p>
+        <footer class="navbar-fixed-bottom" id="nav_container">
+            <div class="container">
+                <p>&copy; @DateTime.Now.Year - Developed by Fedir Petrenko</p>
+            </div>
         </footer>
     </div>
 

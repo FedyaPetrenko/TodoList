@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Security;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -20,8 +21,8 @@ namespace TodoList.Controllers
         // GET: ToDoTasks
         public ActionResult Index()
         {
-            var names = new List<string> {"Project name"};
             string userId = User.Identity.GetUserId();
+            var names = new List<string> {"Project name"};
             foreach (var project in _db.Projects.Where(pr => pr.User.Id == userId))
                 names.Add(project.Name);
             ViewBag.ProjectNames = new SelectList(names);
@@ -29,67 +30,55 @@ namespace TodoList.Controllers
             return View();
         }
 
-        public ActionResult BuildToDoTasksTable()
+        public ActionResult BuildToDoTasksTable(string description = null)
         {
             string userId = User.Identity.GetUserId();
             ApplicationUser currentUser = _db.Users.FirstOrDefault(user => user.Id == userId);
+
+            if (description != null)
+            {
+                IEnumerable<ToDoTask> tasks = _db.ToDoTasks.ToList().Where(task => task.User == currentUser && task.Description.Contains(description));
+                return PartialView("_ToDoTaskTable", tasks);
+            }
+           
             return PartialView("_ToDoTaskTable", _db.ToDoTasks.ToList().Where(task => task.User == currentUser));
         }
 
-        public PartialViewResult CreateToDoTask()
-        {
-            return PartialView("_CreateToDoTask");
-        }
-
-        public PartialViewResult CreateProject()
-        {
-            return PartialView("_CreateProject");
-        }
-
-        public PartialViewResult SearchToDoTask()
-        {
-            return PartialView("_SearchToDoTask");
-        }
-
-        // GET: ToDoTasks/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ToDoTask toDoTask = _db.ToDoTasks.Find(id);
-            if (toDoTask == null)
-            {
-                return HttpNotFound();
-            }
-            return View(toDoTask);
-        }
-
-        // GET: ToDoTasks/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: ToDoTasks/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Description")] ToDoTask toDoTask)
+        public ActionResult CreateProject(Project project)
         {
             if (ModelState.IsValid)
             {
                 string userId = User.Identity.GetUserId();
                 ApplicationUser currentUser = _db.Users.FirstOrDefault(user => user.Id == userId);
+                project.User = currentUser;
+                _db.Projects.Add(project);
+                _db.SaveChanges();
+                return PartialView("_CreateToDoTask");
+            }
+
+            return View("Index");
+        }
+
+        // POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateToDoTask(ToDoTask toDoTask, string projectName)
+        {
+            if (ModelState.IsValid)
+            {
+                string userId = User.Identity.GetUserId();
+                ApplicationUser currentUser = _db.Users.FirstOrDefault(user => user.Id == userId);
+                Project currentProject = _db.Projects.FirstOrDefault(pr => pr.Name == projectName);
+                toDoTask.Project = currentProject;
                 toDoTask.User = currentUser;
                 _db.ToDoTasks.Add(toDoTask);
                 _db.SaveChanges();
-                return RedirectToAction("Index");
             }
 
-            return View(toDoTask);
+            return RedirectToAction("BuildToDoTasksTable");
         }
 
         // GET: ToDoTasks/Edit/5
@@ -123,30 +112,15 @@ namespace TodoList.Controllers
             return View(toDoTask);
         }
 
-        // GET: ToDoTasks/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ToDoTask toDoTask = _db.ToDoTasks.Find(id);
-            if (toDoTask == null)
-            {
-                return HttpNotFound();
-            }
-            return View(toDoTask);
-        }
-
         // POST: ToDoTasks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int? id)
         {
             ToDoTask toDoTask = _db.ToDoTasks.Find(id);
-            _db.ToDoTasks.Remove(toDoTask);
+            if (toDoTask != null) _db.ToDoTasks.Remove(toDoTask);
             _db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("BuildToDoTasksTable");
         }
 
         protected override void Dispose(bool disposing)

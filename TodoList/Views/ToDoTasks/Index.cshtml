@@ -10,9 +10,12 @@
 
 @Html.Partial("_CreateProject")
 
-<div id="tableDiv"></div>
+<div id="tableDiv">
+    @Html.Action("BuildToDoTasksTable")
+</div>
 
 @section Scripts{
     <script src="~/Scripts/AddTodo.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     @Scripts.Render("~/bundles/jqueryval")
 }

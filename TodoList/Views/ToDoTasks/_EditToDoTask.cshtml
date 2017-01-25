@@ -1,0 +1,7 @@
+﻿@model TodoList.Entities.ToDoTask
+
+@using (Html.BeginForm("Edit", "ToDoTasks", FormMethod.Get))
+{
+    @Html.HiddenFor(modelItem => modelItem.Id)
+    <input id="editTask" type="submit" value="Edit" class="btn btn-default" />
+}

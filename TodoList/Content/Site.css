@@ -16,17 +16,11 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-
 /*Set _layout color styles*/
 #nav_container {
     background-color: #FF5722;
     font-weight: bold;
+    color: white;
 }
 
 .navbar-brand {
@@ -59,5 +53,9 @@ textarea {
 }
 
 #searchDiv {
-    margin-top: 20px;
+    margin-top: 10px;
+}
+
+#fieldsetLegend {
+    text-align: center;
 }
