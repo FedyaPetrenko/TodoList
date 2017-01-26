@@ -79,3 +79,6 @@ F:\Projects\TodoList\TodoList\bin\Microsoft.Owin.Security.Twitter.xml
 F:\Projects\TodoList\TodoList\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 F:\Projects\TodoList\TodoList\obj\Debug\TodoList.dll
 F:\Projects\TodoList\TodoList\obj\Debug\TodoList.pdb
+F:\Projects\TodoList\TodoList\bin\AutoMapper.dll
+F:\Projects\TodoList\TodoList\bin\AutoMapper.xml
+F:\Projects\TodoList\TodoList\obj\Debug\TodoList.csprojResolveAssemblyReference.cache

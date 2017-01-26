@@ -1,4 +1,4 @@
-﻿@model TodoList.Entities.ToDoTask
+﻿@model TodoList.Models.ToDoTaskViewModel
     @{
         var options = new AjaxOptions()
         {
@@ -23,7 +23,8 @@
                 </div>
 
                 <div class="col-md-6">
-                    @Html.DropDownList("projectName", (SelectList)ViewBag.ProjectNames, new { @class = "btn btn-default dropdown-toggle form-control" })
+                    @Html.DropDownListFor(model => model.ProjectName , (SelectList)ViewBag.ProjectNames, new { @class = "btn btn-default dropdown-toggle form-control" })
+                    @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
                 </div>
             </div>
 

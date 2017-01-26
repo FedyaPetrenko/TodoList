@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Security;
-using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using Microsoft.AspNet.Identity;
 using TodoList.Entities;
 using TodoList.Models;
@@ -22,10 +19,7 @@ namespace TodoList.Controllers
         public ActionResult Index()
         {
             string userId = User.Identity.GetUserId();
-            var names = new List<string> {"Project name"};
-            foreach (var project in _db.Projects.Where(pr => pr.User.Id == userId))
-                names.Add(project.Name);
-            ViewBag.ProjectNames = new SelectList(names);
+            UpdateViewBagListOfProjects(userId);
 
             return View();
         }
@@ -34,50 +28,73 @@ namespace TodoList.Controllers
         {
             string userId = User.Identity.GetUserId();
             ApplicationUser currentUser = _db.Users.FirstOrDefault(user => user.Id == userId);
+            
+            //Initialize Mapper
+            Mapper.Initialize(cfg => cfg.CreateMap<ToDoTask, ToDoTaskViewModel>());
 
             if (description != null)
             {
-                IEnumerable<ToDoTask> tasks = _db.ToDoTasks.ToList().Where(task => task.User == currentUser && task.Description.Contains(description));
-                return PartialView("_ToDoTaskTable", tasks);
+                IEnumerable<ToDoTask> searchTasks = _db.ToDoTasks.ToList().Where(task => task.User == currentUser && task.Description.Contains(description));
+                var searchTaskViewModels = Mapper.Map<IEnumerable<ToDoTask>, IEnumerable<ToDoTaskViewModel>>(searchTasks);
+                return PartialView("_ToDoTaskTable", searchTaskViewModels);
             }
-           
-            return PartialView("_ToDoTaskTable", _db.ToDoTasks.ToList().Where(task => task.User == currentUser));
+
+            IEnumerable<ToDoTask> tasks = _db.ToDoTasks.ToList().Where(task => task.User == currentUser);
+            var taskViewModels = Mapper.Map<IEnumerable<ToDoTask>, IEnumerable<ToDoTaskViewModel>>(tasks);
+            return PartialView("_ToDoTaskTable", taskViewModels);
         }
 
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateProject(Project project)
+        public ActionResult CreateProject(ProjectViewModel projectViewModel)
         {
             if (ModelState.IsValid)
             {
+                //Initialize Mapper
+                Mapper.Initialize(cfg => cfg.CreateMap<ProjectViewModel, Project>());
+                var project = Mapper.Map<ProjectViewModel, Project>(projectViewModel);
+
                 string userId = User.Identity.GetUserId();
                 ApplicationUser currentUser = _db.Users.FirstOrDefault(user => user.Id == userId);
                 project.User = currentUser;
                 _db.Projects.Add(project);
                 _db.SaveChanges();
-                return PartialView("_CreateToDoTask");
+
+                UpdateViewBagListOfProjects(userId);
             }
 
-            return View("Index");
+            return RedirectToAction("Index");
+        }
+
+        private void UpdateViewBagListOfProjects(string userId)
+        {
+            var names = new List<string> {"Project name"};
+            foreach (var proj in _db.Projects.Where(pr => pr.User.Id == userId))
+                names.Add(proj.Name);
+            ViewBag.ProjectNames = new SelectList(names);
         }
 
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateToDoTask(ToDoTask toDoTask, string projectName)
+        public ActionResult CreateToDoTask(ToDoTaskViewModel toDoTaskViewModel)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && toDoTaskViewModel.ProjectName != "Project name")
             {
+                //Initialize Mapper
+                Mapper.Initialize(cfg => cfg.CreateMap<ToDoTaskViewModel, ToDoTask>());
+                var toDoTask = Mapper.Map<ToDoTaskViewModel, ToDoTask>(toDoTaskViewModel);
+
                 string userId = User.Identity.GetUserId();
                 ApplicationUser currentUser = _db.Users.FirstOrDefault(user => user.Id == userId);
-                Project currentProject = _db.Projects.FirstOrDefault(pr => pr.Name == projectName);
+                Project currentProject = _db.Projects.FirstOrDefault(pr => pr.Name == toDoTaskViewModel.ProjectName);
                 toDoTask.Project = currentProject;
                 toDoTask.User = currentUser;
                 _db.ToDoTasks.Add(toDoTask);
                 _db.SaveChanges();
             }
-
+            //ModelState.AddModelError("ProjectName", "The project name is required.");
             return RedirectToAction("BuildToDoTasksTable");
         }
 
@@ -93,23 +110,28 @@ namespace TodoList.Controllers
             {
                 return HttpNotFound();
             }
-            return View(toDoTask);
+            //Initialize Mapper
+            Mapper.Initialize(cfg => cfg.CreateMap<ToDoTask, ToDoTaskViewModel>());
+            var toDoTaskViewModel = Mapper.Map<ToDoTask, ToDoTaskViewModel>(toDoTask);
+            return View(toDoTaskViewModel);
         }
 
         // POST: ToDoTasks/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Description,IsDone")] ToDoTask toDoTask)
+        public ActionResult Edit(ToDoTaskViewModel toDoTaskViewModel)
         {
             if (ModelState.IsValid)
             {
+                //Initialize Mapper
+                Mapper.Initialize(cfg => cfg.CreateMap<ToDoTaskViewModel, ToDoTask>());
+                var toDoTask = Mapper.Map<ToDoTaskViewModel, ToDoTask>(toDoTaskViewModel);
+
                 _db.Entry(toDoTask).State = EntityState.Modified;
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(toDoTask);
+            return View(toDoTaskViewModel);
         }
 
         // POST: ToDoTasks/Delete/5

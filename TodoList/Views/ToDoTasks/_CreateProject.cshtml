@@ -1,13 +1,6 @@
-﻿@model TodoList.Entities.Project
+﻿@model TodoList.Models.ProjectViewModel
 
-@{
-    var options = new AjaxOptions()
-    {
-        Url = Url.Action("CreateProject")
-    };
-}
-
-@using (Ajax.BeginForm(options)) 
+@using (Html.BeginForm("CreateProject", "ToDoTasks")) 
 {
     @Html.AntiForgeryToken()
     <fieldset class="col-md-5">

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TodoList.Entities.ToDoTask>
+﻿@model IEnumerable<TodoList.Models.ToDoTaskViewModel>
     
 @{
     var editOption = new AjaxOptions()
@@ -24,7 +24,7 @@
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Project.Name)
+            @Html.DisplayNameFor(model => model.ProjectName)
         </th>
         <th>Actions</th>
     </tr>
@@ -39,7 +39,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Project.Name)
+                @Html.DisplayFor(modelItem => item.ProjectName)
             </td>
             <td>
                 <div class="row">
