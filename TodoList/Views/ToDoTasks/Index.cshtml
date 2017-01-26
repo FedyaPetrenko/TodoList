@@ -2,13 +2,25 @@
     ViewBag.Title = "AddTodoList";
 }
 
-<h2 class="col-lg-offset-5">Add Todo</h2>
+<div class="row">
+    <br/>
+    <div class="col-md-4">
+        @Html.Partial("_SearchToDoTask")
+    </div>
+    <div class="col-md-3 col-lg-offset-5">
+        @Html.Partial("_SaveToFileInJson")
+    </div>
+</div>
 
-@Html.Partial("_CreateToDoTask")
+<div class="row">
+    <h2 class="col-lg-offset-5">Add Todo</h2>
 
-<div class="col-md-2"></div>
+    @Html.Partial("_CreateToDoTask")
 
-@Html.Partial("_CreateProject")
+    <div class="col-md-2"></div>
+
+    @Html.Partial("_CreateProject")
+</div>
 
 <div id="tableDiv">
     @Html.Action("BuildToDoTasksTable")

@@ -1,0 +1,13 @@
+﻿@{
+    var option = new AjaxOptions()
+    {
+        Url = Url.Action("SaveToFile"),
+        HttpMethod = "Post"
+    };
+}
+
+@using (Ajax.BeginForm(option))
+{
+    @Html.AntiForgeryToken()
+   <input id="saveToFileTasks" type="submit" value="Save tasks to file" class="btn btn-success" />
+}

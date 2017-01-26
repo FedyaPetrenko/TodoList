@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "ToDoTasks", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     
@@ -32,6 +32,8 @@
                     </div>
                 </div>
             </div>
+            
+            @Html.HiddenFor(model => model.ProjectName)
 
             <div class="form-group">
                 <div class="col-md-offset-6 col-md-10">
